@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/card";
 import { prisma } from "./lib/prisma";
 import { Button } from "@/components/ui/button";
+import AddStarButton from "@/components/AddStarButton";
 
 export default async function Home() {
   const estrelas = await prisma.estrelas.findMany();
@@ -40,37 +41,8 @@ export default async function Home() {
                 {estrela.magnitude}
               </p>
               <div className="mt-4">
-                <Button
-                  variant="outline"
-                  onClick={async () => {
-                    await prisma.estrelas.delete({
-                      where: {
-                        id: estrela.id,
-                      },
-                    });
-                    alert("Estrela removida!");
-                  }}
-                >
-                  Remover
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={async () => {
-                    await prisma.estrelas.update({
-                      where: {
-                        id: estrela.id,
-                      },
-                      data: {
-                        nome: "Sirius",
-                        distancia_ly: 8.6,
-                        magnitude: -1.46,
-                      },
-                    });
-                    alert("Estrela atualizada!");
-                  }}
-                >
-                  Atualizar
-                </Button>
+               
+               
               </div>
             </CardContent>
           </Card>
@@ -80,21 +52,7 @@ export default async function Home() {
         <p className="text-muted-foreground">
           Adicionar estrelas ao catálogo usando o Prisma Client no backend.
         </p>
-        <Button
-          variant="outline"
-          onClick={async () => {
-            await prisma.estrelas.create({
-              data: {
-                nome: "Sirius",
-                distancia_ly: 8.6,
-                magnitude: -1.46,
-              },
-            });
-            alert("Estrela adicionada!");
-          }}
-        >
-          Adicionar Sirius
-        </Button>
+        <AddStarButton />
       </div>
     </main>
   );
