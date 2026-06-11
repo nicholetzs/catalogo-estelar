@@ -13,3 +13,12 @@ model estrelas {
   distancia_ly Float?
   magnitude    Float?
 }
+
+model exoplanets {
+  id          Int @id @default(autoincrement())
+  nome        String @db.VarChar(100)
+  missao      String @db.VarChar(100)
+  estrela_id  Int
+  estrela     estrelas @relation(fields: [estrela_id], references: [id])
+  method      String @db.VarChar(100)
+}
